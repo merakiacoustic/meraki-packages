@@ -6,3 +6,5 @@ conanbuildinfo.txt
 conaninfo.txt
 graph_info.json
 build/
+CMakeUserPresets.json
+

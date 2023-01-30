@@ -1,0 +1,5 @@
+sources:
+  "wip_conan":
+    url:
+    - "https://github.com/merakiacoustic/ohNet/archive/refs/tags/wip_conan.tar.gz"
+    sha256: "e32f81d12c4963170139db84f369f316e3cf6994c4b1a5589bc9ac2dca97ad27"

@@ -15,6 +15,8 @@ in
 mkShell {
   buildInputs = [
     python-with-my-packages
+    cmake
+    gcc
   ];
 
   shellHook = ''
