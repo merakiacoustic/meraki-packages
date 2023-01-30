@@ -43,6 +43,7 @@ class OhNetConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
+        # tc.variables["ENDIANNESS"] = "DEFINE_LITTLE_ENDIAN"
         tc.generate()
         
         cd = CMakeDeps(self)
@@ -58,10 +59,10 @@ class OhNetConan(ConanFile):
         copy(self, "*.h",
             src=os.path.join(self.build_folder, "Temp"),
             dst=os.path.join(self.package_folder, "include"))
-            
-        # copy(self, "*.a", keep_path=False,
-        #     src=self.build_folder,
-        #     dst=os.path.join(self.package_folder, "lib"))
+        copy(self, "*.inl",
+            src=os.path.join(self.build_folder, "Temp"),
+            dst=os.path.join(self.package_folder, "include"))
+
         copy(self, "*.so", keep_path=False,
             src=self.build_folder,
             dst=os.path.join(self.package_folder, "lib"))
@@ -77,14 +78,10 @@ class OhNetConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["ohNet"]
+        self.cpp_info.defines.append("ENDIANNESS=DEFINE_LITTLE_ENDIAN")
+        self.cpp_info.cxxflags.append("-DDEFINE_LITTLE_ENDIAN")
 
-        # self.cpp_info.set_property("cmake_module_file_name", "ohNet")
-        # self.cpp_info.set_property("cmake_module_target_name", "ohNet::ohNet")
-        # self.cpp_info.set_property("cmake_file_name", "ohNet")
-        # self.cpp_info.set_property("cmake_target_name", "ohNet::ohNet")
-
-        # If they are needed on Linux, m, pthread and dl are usually needed on FreeBSD too
-        # if self.settings.os in ["Linux", "FreeBSD"]:
-        #     self.cpp_info.system_libs.append("m")
-        #     self.cpp_info.system_libs.append("pthread")
-        #     self.cpp_info.system_libs.append("dl")
+        self.env_info.ENDIANNESS = "DEFINE_LITTLE_ENDIAN"
+        self.buildenv_info.ENDIANNESS = "DEFINE_LITTLE_ENDIAN"
+        self.runenv_info.ENDIANNESS = "DEFINE_LITTLE_ENDIAN"
+        self.conf_info .ENDIANNESS = "DEFINE_LITTLE_ENDIAN"

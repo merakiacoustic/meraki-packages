@@ -1,16 +1,25 @@
-#include <cstdlib>
 #include <iostream>
-// #include "package/foobar.hpp"
+#include <vector>
 
+#include <OpenHome/Net/Core/OhNet.h>
 
-int main(void) {
-    std::cout << "Create a minimal usage for the target project here." << std::endl;
-    std::cout << "Avoid big examples, bigger than 100 lines" << std::endl;
-    std::cout << "Avoid networking connections." << std::endl;
-    std::cout << "Avoid background apps or servers." << std::endl;
-    std::cout << "The propose is testing the generated artifacts only." << std::endl;
+using namespace std;
+using namespace OpenHome;
+using namespace OpenHome::Net;
 
-    // foobar.print_version();
+int main(void)
+{
+  InitialisationParams *initParams = InitialisationParams::Create(); 
+  Environment *env = UpnpLibrary::Initialise(initParams);
 
-    return EXIT_SUCCESS;
+  std::vector<NetworkAdapter *> *subnetList = UpnpLibrary::CreateSubnetList();
+  int pos = 1;
+  for (auto iter = subnetList->begin(); iter != subnetList->end(); ++iter, ++pos)
+  {
+    char *full_name = (*iter)->FullName();
+    cout << "Found adapter #" << pos << ": " << full_name << endl;
+    free(full_name);
+  }
+
+  return EXIT_SUCCESS;
 }
