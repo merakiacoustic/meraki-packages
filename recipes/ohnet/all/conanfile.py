@@ -55,24 +55,21 @@ class OhNetConan(ConanFile):
         cmake.build()
 
     def package(self):
-        copy(self, pattern="LICENSE", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
+        copy(self, pattern="*License.txt", dst=os.path.join(self.package_folder, "licenses"), src=self.source_folder)
+
         copy(self, "*.h",
             src=os.path.join(self.build_folder, "Temp"),
             dst=os.path.join(self.package_folder, "include"))
         copy(self, "*.inl",
             src=os.path.join(self.build_folder, "Temp"),
             dst=os.path.join(self.package_folder, "include"))
-
         copy(self, "*.so", keep_path=False,
             src=self.build_folder,
             dst=os.path.join(self.package_folder, "lib"))
+        copy(self, "*.py", keep_path=True,
+            src=os.path.join(self.source_folder, "OpenHome", "Net", "ServiceGen"),
+            dst=os.path.join(self.package_folder, "bin"))
 
-        rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
-        rmdir(self, os.path.join(self.package_folder, "share"))
-        rm(self, "*.la", os.path.join(self.package_folder, "lib"))
-        rm(self, "*.pdb", os.path.join(self.package_folder, "lib"))
-        rm(self, "*.pdb", os.path.join(self.package_folder, "bin"))
-        
         cmake = CMake(self)
         cmake.install()
 
