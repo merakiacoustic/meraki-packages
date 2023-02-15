@@ -52,11 +52,6 @@ class OhPipelineConan(ConanFile):
         cd = CMakeDeps(self)
         cd.generate()
 
-        print("libki:")
-        print(self.deps_cpp_info)
-        deps = self.deps_cpp_info.deps
-        print(deps)
-
         copy(self, "*.py", self.deps_cpp_info["ohnet"].bin_paths[0], self.build_folder)
 
     def build(self):
