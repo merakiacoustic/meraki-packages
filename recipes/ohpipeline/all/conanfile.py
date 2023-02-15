@@ -40,7 +40,7 @@ class OhPipelineConan(ConanFile):
         self.requires("alac/cci.20121212")
         self.requires("libfdk_aac/2.0.2")
         self.requires("libmad/0.15.1b")
-        self.requires("ohnet/wip_conan")
+        self.requires("ohnet/conan-package-1.0")
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
