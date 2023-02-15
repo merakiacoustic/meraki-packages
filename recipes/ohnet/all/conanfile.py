@@ -23,7 +23,6 @@ class OhNetConan(ConanFile):
         "shared": False,
         "fPIC": True,
     }
-    generators = "cmake"
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -41,6 +40,13 @@ class OhNetConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.generate()
+        
+        cd = CMakeDeps(self)
+        cd.generate()
 
     def build(self):
         cmake = CMake(self)
