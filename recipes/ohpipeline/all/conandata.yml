@@ -1,0 +1,5 @@
+sources:
+  "conan-package-1.0":
+    url:
+    - "https://github.com/merakiacoustic/ohPipeline/archive/refs/tags/conan-package-1.0.tar.gz"
+    sha256: "029a734ec4e2d233a6e77720aa48824741d2f4fd6651021da30e7c4e26c3a6af"

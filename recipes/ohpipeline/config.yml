@@ -1,0 +1,3 @@
+versions:
+  "conan-package-1.0":
+    folder: all
